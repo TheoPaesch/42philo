@@ -6,7 +6,7 @@
 /*   By: tpaesch <tpaesch@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/27 14:51:20 by tpaesch           #+#    #+#             */
-/*   Updated: 2024/04/12 21:34:43 by tpaesch          ###   ########.fr       */
+/*   Updated: 2024/04/12 22:46:34 by tpaesch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,3 +64,4 @@ int	init_threads(int)
 /*function that increases philosophers counts*/
 /* check if philo exceedes times*/
 /*philo geht in anderen philo rein und locked den mutex der Fork*/
+/*philo checks if thir own fork is mutexed and then takes the fork from left philo and from right philo*/
