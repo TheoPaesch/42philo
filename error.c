@@ -6,7 +6,7 @@
 /*   By: tpaesch <tpaesch@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/27 13:48:26 by tpaesch           #+#    #+#             */
-/*   Updated: 2024/04/03 14:32:21 by tpaesch          ###   ########.fr       */
+/*   Updated: 2024/04/07 16:20:17 by tpaesch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,3 +28,5 @@ void	ft_error(int i)
 		printf("----------------------------------------------\n");
 	}
 }
+
+/*function that frees all philos and all mem allocated inside them*/

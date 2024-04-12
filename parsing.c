@@ -6,7 +6,7 @@
 /*   By: tpaesch <tpaesch@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/27 13:24:23 by tpaesch           #+#    #+#             */
-/*   Updated: 2024/04/03 14:31:44 by tpaesch          ###   ########.fr       */
+/*   Updated: 2024/04/09 19:19:46 by tpaesch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ int	ft_isnum(int argc, char **argv)
 		}
 		j++;
 	}
+	return (1);
 }
 
 int	ft_atoi(const char *str, int *num)
