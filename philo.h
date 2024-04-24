@@ -6,7 +6,7 @@
 /*   By: tpaesch <tpaesch@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 18:02:26 by tpaesch           #+#    #+#             */
-/*   Updated: 2024/04/10 12:44:14 by tpaesch          ###   ########.fr       */
+/*   Updated: 2024/04/19 17:17:01 by tpaesch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,8 @@
 
 typedef struct s_philos
 {
+	pthread_t		ph_thread;
+	pthread_mutex_t	fork;
 	int				tt_sleep;
 	int				tt_eat;
 	int				tt_die;

@@ -6,7 +6,7 @@
 /*   By: tpaesch <tpaesch@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/27 13:24:23 by tpaesch           #+#    #+#             */
-/*   Updated: 2024/04/12 22:44:15 by tpaesch          ###   ########.fr       */
+/*   Updated: 2024/04/24 13:31:12 by tpaesch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,8 @@ int	ft_isnum(int argc, char **argv)
 	int	i;
 	int	j;
 
-	j = 1 while (j != argc)
+	j = 1;
+	while (j != argc)
 	{
 		i = 0;
 		while (argv[j][i] != '\0')
@@ -25,12 +26,12 @@ int	ft_isnum(int argc, char **argv)
 			if (argv[j][0] == '+' && argv[j][1] != '\0')
 				i++;
 			if (argv[j][i] < '0' || argv[j][i] > '9')
-				return (0);
+				return (1);
 			i++;
 		}
 		j++;
 	}
-	return (1);
+	return (0);
 }
 
 int	ft_atoi(const char *str, int *num)
@@ -51,9 +52,14 @@ int	ft_atoi(const char *str, int *num)
 	return (0);
 }
 
-int	check_input(t_ph_cons cons)
+int	check_input(int argc, char **argv)
 {
-	if (cons.ph_amount < 1 || cons.ph_amount > 200)
-		return (ft_error(1), free_all(), 1);
-	if ()
+	int check;
+
+	check = 0;
+	if (ft_isnum(int argc, char **argv))
+		return (ft_error(0), 1);
+	ft_atoi(argv[1], (int *)check);
+	if (check < 1 || check > 200)
+		return (ft_error(1), 1);
 }

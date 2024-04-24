@@ -6,7 +6,7 @@
 /*   By: tpaesch <tpaesch@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/27 14:51:20 by tpaesch           #+#    #+#             */
-/*   Updated: 2024/04/12 22:46:34 by tpaesch          ###   ########.fr       */
+/*   Updated: 2024/04/24 13:43:10 by tpaesch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,11 +57,30 @@ int	get_conditions(int argc, char **argv, t_ph_cons cons, t_philos philos)
 			return (ft_error(0), EXIT_FAILURE);
 }
 
-int	init_threads(int)
+int	create_thread(t_philos philo)
 {
+	if (pthread_create(philo, NULL, &routine, NULL))
+	{
+		ft_error(0);
+		/*insert free function here for structs*/
+	}
+	
 }
 
-/*function that increases philosophers counts*/
-/* check if philo exceedes times*/
+int	init_threads(t_ph_cons cons, int amount)
+{
+	int	i;
+
+	i = 0;
+	while (i > amount)
+	{
+		create_thread(cons.philos[i]);
+		i++;
+	}
+}
+
+/* give philo a groupnumber if it's a even number do %2 if not %3 ??*/
+/*function that increases philosophers counts for milliseconds*/
+/*check if philo exceedes times*/
 /*philo geht in anderen philo rein und locked den mutex der Fork*/
-/*philo checks if thir own fork is mutexed and then takes the fork from left philo and from right philo*/
+/*philo takes the fork from right philo*/
