@@ -6,7 +6,7 @@
 /*   By: tpaesch <tpaesch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 18:02:26 by tpaesch           #+#    #+#             */
-/*   Updated: 2024/04/26 15:26:06 by tpaesch          ###   ########.fr       */
+/*   Updated: 2024/04/26 16:22:48 by tpaesch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,10 +21,11 @@
 
 typedef struct s_philos
 {
+	int				ph_num;
 	pthread_t		ph_thread;
-	pthread_mutex_t	fork;
-	pthread_mutex_t	for_eaten;
-	pthread_mutex_t	for_amount;
+	pthread_mutex_t	*fork;
+	pthread_mutex_t	*for_eaten;
+	pthread_mutex_t	*for_amount;
 	unsigned int	tt_sleep;
 	unsigned int	tt_eat;
 	unsigned int	tt_die;
@@ -52,7 +53,7 @@ void				*ph_routine(void *philo);
 void				*keep_routine(void *barkeep);
 unsigned int		ft_get_millis(void);
 void				ft_wait_until(unsigned int time);
-void				fill_philo(t_philos philos, t_ph_cons cons);
+void				fill_philo(t_philos philos, t_ph_cons cons, int num);
 int					ft_malloc(size_t size, void **ptr);
 void				free_philos(t_ph_cons cons, int id);
 #endif

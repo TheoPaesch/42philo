@@ -6,7 +6,7 @@
 /*   By: tpaesch <tpaesch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/27 13:24:23 by tpaesch           #+#    #+#             */
-/*   Updated: 2024/04/26 13:34:24 by tpaesch          ###   ########.fr       */
+/*   Updated: 2024/04/26 16:00:48 by tpaesch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ int	ft_isnum(int argc, char **argv)
 	int	j;
 
 	j = 1;
-	while (j != argc)
+	while (j < argc)
 	{
 		i = 0;
 		while (argv[j][i] != '\0')

@@ -6,7 +6,7 @@
 /*   By: tpaesch <tpaesch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/24 15:36:56 by tpaesch           #+#    #+#             */
-/*   Updated: 2024/04/24 23:09:17 by tpaesch          ###   ########.fr       */
+/*   Updated: 2024/04/26 16:00:12 by tpaesch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ int	main(int argc, char **argv)
 		return (ft_error(1), 1);
 	else
 	{
-		if (!ft_isnum())
+		if (ft_isnum(argc, argv))
 			return (ft_error(0), 1);
 	}
 }

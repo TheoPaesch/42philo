@@ -6,7 +6,7 @@
 /*   By: tpaesch <tpaesch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/27 14:51:20 by tpaesch           #+#    #+#             */
-/*   Updated: 2024/04/26 15:28:10 by tpaesch          ###   ########.fr       */
+/*   Updated: 2024/04/26 16:22:26 by tpaesch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ int	get_conditions(int argc, char **argv, t_ph_cons cons, t_philos philos)
 			return (ft_error(0), EXIT_FAILURE);
 		while (i <= cons.ph_amount)
 		{
-			fill_philo(cons.philos[i], cons);
+			fill_philo(cons.philos[i], cons, i + 1);
 			i++;
 		}
 	}
