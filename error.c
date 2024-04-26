@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   error.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tpaesch <tpaesch@student.42heilbronn.de    +#+  +:+       +#+        */
+/*   By: tpaesch <tpaesch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/27 13:48:26 by tpaesch           #+#    #+#             */
-/*   Updated: 2024/04/07 16:20:17 by tpaesch          ###   ########.fr       */
+/*   Updated: 2024/04/26 11:16:02 by tpaesch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,4 +29,8 @@ void	ft_error(int i)
 	}
 }
 
-/*function that frees all philos and all mem allocated inside them*/
+void	free_philos(t_ph_cons cons)
+{
+	free (cons.philos);
+	cons.philos = NULL;
+}

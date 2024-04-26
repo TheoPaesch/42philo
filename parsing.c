@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tpaesch <tpaesch@student.42heilbronn.de    +#+  +:+       +#+        */
+/*   By: tpaesch <tpaesch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/27 13:24:23 by tpaesch           #+#    #+#             */
-/*   Updated: 2024/04/24 13:31:12 by tpaesch          ###   ########.fr       */
+/*   Updated: 2024/04/24 23:09:06 by tpaesch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,10 +54,10 @@ int	ft_atoi(const char *str, int *num)
 
 int	check_input(int argc, char **argv)
 {
-	int check;
+	int	check;
 
 	check = 0;
-	if (ft_isnum(int argc, char **argv))
+	if (ft_isnum(argc, argv))
 		return (ft_error(0), 1);
 	ft_atoi(argv[1], (int *)check);
 	if (check < 1 || check > 200)
