@@ -6,7 +6,7 @@
 /*   By: tpaesch <tpaesch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/27 13:48:26 by tpaesch           #+#    #+#             */
-/*   Updated: 2024/04/26 11:16:02 by tpaesch          ###   ########.fr       */
+/*   Updated: 2024/04/26 15:31:01 by tpaesch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,21 @@ void	ft_error(int i)
 	}
 }
 
-void	free_philos(t_ph_cons cons)
+void	free_philos(t_ph_cons cons, int id)
 {
-	free (cons.philos);
+	int	i;
+
+	i = 0;
+	if (id == 2)
+	{
+		while (i < cons.ph_amount)
+		{
+			pthread_mutex_destroy(&cons.philos[i].fork);
+			pthread_mutex_destroy(&cons.philos[i].for_amount);
+			pthread_mutex_destroy(&cons.philos[i].for_eaten);
+			i++;
+		}
+	}
+	free(cons.philos);
 	cons.philos = NULL;
 }

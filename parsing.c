@@ -6,7 +6,7 @@
 /*   By: tpaesch <tpaesch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/27 13:24:23 by tpaesch           #+#    #+#             */
-/*   Updated: 2024/04/24 23:09:06 by tpaesch          ###   ########.fr       */
+/*   Updated: 2024/04/26 13:34:24 by tpaesch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,11 +34,12 @@ int	ft_isnum(int argc, char **argv)
 	return (0);
 }
 
-int	ft_atoi(const char *str, int *num)
+void	ft_atoi(const char *str, unsigned int *num)
 {
-	int			i;
-	long int	temp;
+	int				i;
+	unsigned int	temp;
 
+	i = 0;
 	if (str[i] == '+')
 		i++;
 	while (str[i] <= '9' && str[i] >= '0')
@@ -48,7 +49,7 @@ int	ft_atoi(const char *str, int *num)
 	}
 	if (temp > 2147483647)
 		return (1);
-	*num = (int *)temp;
+	*num = (unsigned int *)temp;
 	return (0);
 }
 
