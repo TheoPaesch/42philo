@@ -6,7 +6,7 @@
 /*   By: tpaesch <tpaesch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/27 14:51:20 by tpaesch           #+#    #+#             */
-/*   Updated: 2024/04/26 16:22:26 by tpaesch          ###   ########.fr       */
+/*   Updated: 2024/04/27 22:25:12 by tpaesch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,25 @@ int	init_threads(t_ph_cons cons)
 	return (EXIT_SUCCESS);
 }
 
+void	init_forks(t_ph_cons cons)
+{
+	int	i;
+
+	i = 0;
+	while (i < cons.ph_amount)
+	{
+		pthread_mutex_init(cons.philos[i].for_eaten, NULL);
+		pthread_mutex_init(cons.philos[i].for_amount, NULL);
+		pthread_mutex_init(cons.philos[i].for_alive, NULL);
+		i++;
+	}
+	i = 0;
+	while (i < cons.ph_amount)
+	{
+		pthread_mutex_init(cons.fork[i], NULL);
+		i++;
+	}
+}
 /* remember to destroy mutexes*/
 /* function for init mutexes*/
 /* give philo a groupnumber if it's a even number do %2 if not %3 ??*/
@@ -81,3 +100,4 @@ int	init_threads(t_ph_cons cons)
 /*philo geht in anderen philo rein und locked den mutex der Fork*/
 /*philo takes the fork from right philo*/
 /* have to add time of millis to get_conditions?*/
+/*init array of forks for philos in table struct*/
