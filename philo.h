@@ -6,7 +6,7 @@
 /*   By: tpaesch <tpaesch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 18:02:26 by tpaesch           #+#    #+#             */
-/*   Updated: 2024/04/27 22:25:26 by tpaesch          ###   ########.fr       */
+/*   Updated: 2024/04/28 18:38:46 by tpaesch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,8 @@ typedef struct s_philos
 	pthread_mutex_t	*for_eaten;
 	pthread_mutex_t	*for_amount;
 	pthread_mutex_t	*for_alive;
+	pthread_mutex_t	*fork_l;
+	pthread_mutex_t	*fork_r;
 	unsigned int	tt_sleep;
 	unsigned int	tt_eat;
 	unsigned int	tt_die;
@@ -44,9 +46,9 @@ typedef struct s_ph_cons
 	int				a_eaten;
 	int				gt_eat;
 	t_philos		*philos;
-	pthread_mutex_t	**fork;
 }					t_ph_cons;
 
+void				ft_error(int i);
 int					get_conditions(int argc, char **argv, t_ph_cons cons,
 						t_philos philos);
 int					init_threads(t_ph_cons cons);

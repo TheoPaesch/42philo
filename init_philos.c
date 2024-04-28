@@ -6,7 +6,7 @@
 /*   By: tpaesch <tpaesch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/27 14:51:20 by tpaesch           #+#    #+#             */
-/*   Updated: 2024/04/27 22:25:12 by tpaesch          ###   ########.fr       */
+/*   Updated: 2024/04/28 18:46:39 by tpaesch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int	get_conditions(int argc, char **argv, t_ph_cons cons, t_philos philos)
 	if (ft_atoi(argv[4], cons.tt_sleep))
 		return (ft_error(0), EXIT_FAILURE);
 	if (argc == 6)
-		if (ft_atoi(argv[5], cons.a_eaten))
+		if (ft_atoi(argv[5], cons.gt_eat))
 			return (ft_error(0), EXIT_FAILURE);
 	if (ft_atoi(argv[1], cons.ph_amount))
 		return (ft_error(0), EXIT_FAILURE);
@@ -59,17 +59,17 @@ int	init_threads(t_ph_cons cons)
 	int	i;
 
 	i = 0;
-	while (i > cons.ph_amount)
-	{
-		if (create_thread(cons.philos[i], cons))
-			return (EXIT_FAILURE);
-		i++;
-	}
 	if (pthread_create(&(cons.barkeep), NULL, keep_routine, &(cons)))
 	{
 		ft_error(0);
 		free_philos(cons, 1);
 		return (EXIT_FAILURE);
+	}
+	while (i > cons.ph_amount)
+	{
+		if (create_thread(cons.philos[i], cons))
+			return (EXIT_FAILURE);
+		i++;
 	}
 	return (EXIT_SUCCESS);
 }
@@ -81,19 +81,22 @@ void	init_forks(t_ph_cons cons)
 	i = 0;
 	while (i < cons.ph_amount)
 	{
-		pthread_mutex_init(cons.philos[i].for_eaten, NULL);
-		pthread_mutex_init(cons.philos[i].for_amount, NULL);
-		pthread_mutex_init(cons.philos[i].for_alive, NULL);
-		i++;
+		if (pthread_mutex_init(cons.philos[i].for_eaten, NULL))
+			return (ft_error(0), EXIT_FAILURE);
+		if (pthread_mutex_init(cons.philos[i].for_amount, NULL))
+			return (ft_error(0), EXIT_FAILURE);
+		if (pthread_mutex_init(cons.philos[i].for_alive, NULL))
+			return (ft_error(0), EXIT_FAILURE);
+		if (pthread_mutex_init(cons.philos[i].fork_l, NULL))
+			return (ft_error(0), EXIT_FAILURE);
+		if (i > 1)
+			cons.philos[i].fork_r = cons.philos[i - 1].fork_l;
+		/*remember to free here in returns*/
 	}
-	i = 0;
-	while (i < cons.ph_amount)
-	{
-		pthread_mutex_init(cons.fork[i], NULL);
-		i++;
-	}
+	cons.philos[0].fork_r = cons.philos[cons.ph_amount].fork_l;
 }
-/* remember to destroy mutexes*/
+
+/* remember to destroy mutexes!!*/
 /* function for init mutexes*/
 /* give philo a groupnumber if it's a even number do %2 if not %3 ??*/
 /*function that checks philosophers counts for milliseconds with timefunc*/

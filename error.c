@@ -6,7 +6,7 @@
 /*   By: tpaesch <tpaesch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/27 13:48:26 by tpaesch           #+#    #+#             */
-/*   Updated: 2024/04/26 15:31:01 by tpaesch          ###   ########.fr       */
+/*   Updated: 2024/04/28 18:13:16 by tpaesch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ void	free_philos(t_ph_cons cons, int id)
 	{
 		while (i < cons.ph_amount)
 		{
-			pthread_mutex_destroy(&cons.philos[i].fork);
+			pthread_mutex_destroy(&cons.philos[i].for_alive);
 			pthread_mutex_destroy(&cons.philos[i].for_amount);
 			pthread_mutex_destroy(&cons.philos[i].for_eaten);
 			i++;
@@ -47,3 +47,5 @@ void	free_philos(t_ph_cons cons, int id)
 	free(cons.philos);
 	cons.philos = NULL;
 }
+
+/*remember to finish main thread before freeing structs*/
