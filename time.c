@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   time.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tpaesch <tpaesch@student.42.fr>            +#+  +:+       +#+        */
+/*   By: tpaesch <tpaesch@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 16:29:09 by tpaesch           #+#    #+#             */
-/*   Updated: 2024/04/24 23:07:54 by tpaesch          ###   ########.fr       */
+/*   Updated: 2024/05/03 21:17:10 by tpaesch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,4 +36,19 @@ void	ft_wait_until(unsigned int time)
 		else
 			usleep(diff_time * 0.9);
 	}
+}
+
+bool	ft_wait_and_die(unsigned int time, t_philos *philo)
+{
+	unsigned int die_time;
+
+	die_time = philo->l_eaten + philo->tt_die;
+	if (die_time < time)
+	{
+		ft_wait_until(die_time);
+		ft_die(philo);
+		return (true);
+	}
+	ft_wait_until(time);
+	return (false);
 }

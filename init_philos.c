@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_philos.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tpaesch <tpaesch@student.42.fr>            +#+  +:+       +#+        */
+/*   By: tpaesch <tpaesch@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/27 14:51:20 by tpaesch           #+#    #+#             */
-/*   Updated: 2024/04/28 18:46:39 by tpaesch          ###   ########.fr       */
+/*   Updated: 2024/05/03 21:46:22 by tpaesch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ int	get_conditions(int argc, char **argv, t_ph_cons cons, t_philos philos)
 	return (EXIT_SUCCESS);
 }
 
-static int	create_thread(t_philos philo, t_ph_cons cons)
+static int	create_thread(t_philos philo)
 {
 	if (pthread_create(philo.ph_thread, NULL, ph_routine, &(philo)))
 	{
@@ -50,7 +50,6 @@ static int	create_thread(t_philos philo, t_ph_cons cons)
 		free_philos(cons, 1);
 		return (EXIT_FAILURE);
 	}
-	pthread_join(cons.barkeep, philo.ph_thread);
 	return (EXIT_SUCCESS);
 }
 
