@@ -6,7 +6,7 @@
 /*   By: tpaesch <tpaesch@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/27 14:51:20 by tpaesch           #+#    #+#             */
-/*   Updated: 2024/05/03 21:46:22 by tpaesch          ###   ########.fr       */
+/*   Updated: 2024/05/04 03:09:46 by tpaesch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ int	init_threads(t_ph_cons cons)
 	}
 	while (i > cons.ph_amount)
 	{
-		if (create_thread(cons.philos[i], cons))
+		if (create_thread(cons.philos[i]))
 			return (EXIT_FAILURE);
 		i++;
 	}
@@ -84,14 +84,14 @@ void	init_forks(t_ph_cons cons)
 			return (ft_error(0), EXIT_FAILURE);
 		if (pthread_mutex_init(cons.philos[i].for_amount, NULL))
 			return (ft_error(0), EXIT_FAILURE);
-		if (pthread_mutex_init(cons.philos[i].for_alive, NULL))
-			return (ft_error(0), EXIT_FAILURE);
 		if (pthread_mutex_init(cons.philos[i].fork_l, NULL))
 			return (ft_error(0), EXIT_FAILURE);
-		if (i > 1)
+		if (i >= 1)
 			cons.philos[i].fork_r = cons.philos[i - 1].fork_l;
 		/*remember to free here in returns*/
 	}
+	if (pthread_mutex_init(cons.for_alive, NULL))
+		return (ft_error(0), EXIT_FAILURE);
 	cons.philos[0].fork_r = cons.philos[cons.ph_amount].fork_l;
 }
 

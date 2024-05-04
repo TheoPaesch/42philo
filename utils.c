@@ -6,7 +6,7 @@
 /*   By: tpaesch <tpaesch@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/26 14:52:47 by tpaesch           #+#    #+#             */
-/*   Updated: 2024/05/03 22:28:56 by tpaesch          ###   ########.fr       */
+/*   Updated: 2024/05/04 02:53:10 by tpaesch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,14 +24,14 @@ void	fill_philo(t_philos philos, t_ph_cons cons, int num)
 	philos.tt_sleep = cons.tt_sleep;
 	philos.tt_eat = cons.tt_eat;
 	philos.tt_die = cons.tt_die;
-	philos.ph_alive = 1;
 	philos.a_eaten = 0;
-	philos.l_eaten = 0;
+	philos.l_eaten = ft_get_millis();
+	philos.cons = &cons;
 }
 
-void	ft_die(t_philos *philo)
+void	ft_die(t_ph_cons *cons)
 {
-	pthread_mutex_lock(philo->for_alive);
-	philo->ph_alive = 0;
-	pthread_mutex_unlock(philo->for_alive);
+	pthread_mutex_lock(cons->for_alive);
+	cons->one_dead = true;
+	pthread_mutex_unlock(cons->for_alive);
 }

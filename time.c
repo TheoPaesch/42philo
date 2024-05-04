@@ -6,7 +6,7 @@
 /*   By: tpaesch <tpaesch@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 16:29:09 by tpaesch           #+#    #+#             */
-/*   Updated: 2024/05/03 21:17:10 by tpaesch          ###   ########.fr       */
+/*   Updated: 2024/05/04 02:53:09 by tpaesch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ bool	ft_wait_and_die(unsigned int time, t_philos *philo)
 	if (die_time < time)
 	{
 		ft_wait_until(die_time);
-		ft_die(philo);
+		ft_die(philo->cons);
 		return (true);
 	}
 	ft_wait_until(time);

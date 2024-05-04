@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tpaesch <tpaesch@student.42.fr>            +#+  +:+       +#+        */
+/*   By: tpaesch <tpaesch@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 18:02:26 by tpaesch           #+#    #+#             */
-/*   Updated: 2024/04/28 18:38:46 by tpaesch          ###   ########.fr       */
+/*   Updated: 2024/05/04 03:27:37 by tpaesch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define PHILO_H
 
 # include <pthread.h>
+# include <stdbool.h>
 # include <stdio.h>
 # include <stdlib.h>
 # include <sys/time.h>
@@ -25,23 +26,24 @@ typedef struct s_philos
 	pthread_t		ph_thread;
 	pthread_mutex_t	*for_eaten;
 	pthread_mutex_t	*for_amount;
-	pthread_mutex_t	*for_alive;
 	pthread_mutex_t	*fork_l;
 	pthread_mutex_t	*fork_r;
 	unsigned int	tt_sleep;
 	unsigned int	tt_eat;
 	unsigned int	tt_die;
-	int				ph_alive;
 	int				a_eaten;
 	unsigned int	l_eaten;
+	t_ph_cons		*cons;
 }					t_philos;
 
 typedef struct s_ph_cons
 {
+	pthread_mutex_t	*for_alive;
 	pthread_t		barkeep;
 	unsigned int	tt_sleep;
 	unsigned int	tt_eat;
 	unsigned int	tt_die;
+	bool			one_dead;
 	int				ph_amount;
 	int				a_eaten;
 	int				gt_eat;
