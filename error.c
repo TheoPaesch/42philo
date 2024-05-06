@@ -6,7 +6,7 @@
 /*   By: tpaesch <tpaesch@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/27 13:48:26 by tpaesch           #+#    #+#             */
-/*   Updated: 2024/05/04 02:59:16 by tpaesch          ###   ########.fr       */
+/*   Updated: 2024/05/06 02:20:43 by tpaesch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,23 +29,26 @@ void	ft_error(int i)
 	}
 }
 
-void	free_philos(t_ph_cons cons, int id)
+void	free_philos(t_ph_cons *cons, int id)
 {
 	int	i;
 
 	i = 0;
 	if (id == 2)
 	{
-		while (i < cons.ph_amount)
+		while (i < cons->ph_amount)
 		{
-			pthread_mutex_destroy(&cons.philos[i].for_amount);
-			pthread_mutex_destroy(&cons.philos[i].for_eaten);
+			pthread_mutex_destroy(cons->philos[i].fork_r);
+			pthread_mutex_destroy(cons->philos[i].fork_l);
+			pthread_mutex_destroy(cons->philos[i].for_amount);
+			pthread_mutex_destroy(cons->philos[i].for_eaten);
+			pthread_join(cons->philos[i].ph_thread, NULL);
 			i++;
 		}
-		pthread_mutex_destroy(&cons.for_alive);
+		pthread_mutex_destroy(cons->for_alive);
 	}
-	free(cons.philos);
-	cons.philos = NULL;
+	free(cons->philos);
+	cons->philos = NULL;
 }
 
 /*remember to finish main thread before freeing structs*/

@@ -6,30 +6,24 @@
 /*   By: tpaesch <tpaesch@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 13:41:55 by tpaesch           #+#    #+#             */
-/*   Updated: 2024/05/04 03:27:37 by tpaesch          ###   ########.fr       */
+/*   Updated: 2024/05/06 02:17:52 by tpaesch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-/*routine for table (barkeep), that checks if times are overdue*/
+/*routine for table (barkeep), that checks if philo died or meals finished*/
 /*routine for the philosophers, calculating the time from when
 last eaten, to end of meal, end of sleep ... */
 
 void	single_routine(t_philos philo)
 {
 	pthread_mutex_lock(philo.fork_l);
-	/*print for eating here*/
-	ft_wait_until(philo.tt_eat + ft_get_millis());
-	/*philo has to die*/
+	printf("philo %d is eating : %u\n", philo.ph_num, ft_get_millis());
+	ft_wait_and_die(philo.tt_eat + ft_get_millis());
 	pthread_mutex_unlock(philo.fork_l);
 	/*end program here*/
 }
-
-/*void	lock_forks(t_ph_cons *cons)
-{
-}
-*/
 
 void	*ph_routine(void *ph)
 {
@@ -38,17 +32,23 @@ void	*ph_routine(void *ph)
 	philo = (t_philos *)ph;
 	if (&philo->cons->ph_amount == 1)
 		single_routine(*philo);
-	while (simulation_is_running(philo->cons))
+	else
 	{
-		/*print for thinking here*/
-		pthread_mutex_lock(&philo->fork_l);
-		pthread_mutex_lock(&philo->fork_r);
-		/*print for eating here*/
-		ft_wait_and_die(philo->tt_eat + ft_get_millis(), philo);
-		pthread_mutex_unlock(&philo->fork_l);
-		pthread_mutex_unlock(&philo->fork_r);
-		/*print for sleeping here*/
-		ft_wait_until(&philo->tt_sleep + ft_get_millis());
+		while (simulation_is_running(philo->cons))
+		{
+			printf("philo %d is thinking : %u\n", philo->ph_num,
+				ft_get_millis());
+			pthread_mutex_lock(&philo->fork_l);
+			pthread_mutex_lock(&philo->fork_r);
+			printf("philo %d is eating : %u\n", philo->ph_num, ft_get_millis());
+			ft_wait_and_die(philo->tt_eat + ft_get_millis(), philo);
+			philo->a_eaten++;
+			pthread_mutex_unlock(&philo->fork_l);
+			pthread_mutex_unlock(&philo->fork_r);
+			printf("philo %d is sleeping : %u\n", philo->ph_num,
+				ft_get_millis());
+			ft_wait_until(&philo->tt_sleep + ft_get_millis());
+		}
 	}
 }
 
@@ -61,9 +61,13 @@ void	*keep_routine(void *barkeep)
 	i = 0;
 	while (i < cons->ph_amount)
 	{
-		if (cons->philos[i].a_eaten < cons->gt_eat)
-			return (true);
+		if (cons->philos[i].a_eaten == cons->gt_eat)
+			return (free_philos(cons, 2), EXIT_SUCCESS);
+		if (cons->one_dead == true)
+			return (free_philos(cons, 2), EXIT_SUCCESS);
 		i++;
+		if (i == cons->ph_amount)
+			i = 0;
 	}
 	return (false);
 }
