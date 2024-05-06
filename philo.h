@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tpaesch <tpaesch@student.42heilbronn.de    +#+  +:+       +#+        */
+/*   By: tpaesch <tpaesch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 18:02:26 by tpaesch           #+#    #+#             */
-/*   Updated: 2024/05/06 02:38:02 by tpaesch          ###   ########.fr       */
+/*   Updated: 2024/05/06 22:11:31 by tpaesch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ typedef struct s_philos
 	unsigned int			tt_sleep;
 	unsigned int			tt_eat;
 	unsigned int			tt_die;
-	int						a_eaten;
+	unsigned int			a_eaten;
 	unsigned int			l_eaten;
 	t_ph_cons				*cons;
 }							t_philos;
@@ -48,7 +48,7 @@ typedef struct s_ph_cons
 	bool					one_dead;
 	int						ph_done;
 	unsigned int			ph_amount;
-	int						a_eaten;
+	unsigned int			a_eaten;
 	unsigned int			gt_eat;
 	t_philos				*philos;
 }							t_ph_cons;
@@ -67,4 +67,6 @@ int							ft_malloc(size_t size, void **ptr);
 void						free_philos(t_ph_cons *cons, int id);
 bool						ft_atoi(const char *str, unsigned int *num);
 int							ft_isnum(int argc, char **argv);
+bool						ft_wait_and_die(unsigned int time, t_philos *philo);
+void						ft_die(t_ph_cons *cons);
 #endif

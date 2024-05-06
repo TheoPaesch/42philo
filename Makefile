@@ -10,7 +10,8 @@ CFILES = error.c \
 		 parsing.c \
 		 routine.c \
 		 self_check.c \
-		 time.c
+		 time.c \
+		 utils.c
 
 OBJECTS = $(CFILES:.c=.o)
 

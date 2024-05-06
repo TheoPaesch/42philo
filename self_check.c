@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   self_check.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tpaesch <tpaesch@student.42heilbronn.de    +#+  +:+       +#+        */
+/*   By: tpaesch <tpaesch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/07 16:17:25 by tpaesch           #+#    #+#             */
-/*   Updated: 2024/05/03 22:28:50 by tpaesch          ###   ########.fr       */
+/*   Updated: 2024/05/06 22:10:05 by tpaesch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,6 @@
 	{
 		philos.ph_alive = 0;
 	}
-}
+}*/
 
 /*function that checks philo flag and if dead free all*/
