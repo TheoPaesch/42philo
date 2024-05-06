@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tpaesch <tpaesch@student.42heilbronn.de    +#+  +:+       +#+        */
+/*   By: tpaesch <tpaesch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/27 13:24:23 by tpaesch           #+#    #+#             */
-/*   Updated: 2024/05/06 02:45:45 by tpaesch          ###   ########.fr       */
+/*   Updated: 2024/05/07 00:52:46 by tpaesch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,21 +34,17 @@ int	ft_isnum(int argc, char **argv)
 	return (0);
 }
 
-bool	ft_atoi(const char *str, unsigned int *num)
+unsigned int	ft_atoi(char *str)
 {
-	int	i;
+	unsigned int	num;
 
-	i = 0;
-	if (str[i] == '+')
-		i++;
-	while (str[i] <= '9' && str[i] >= '0')
+	num = 0;
+	while (*str >= '0' && *str <= '9')
 	{
-		*num = (*num * 10) + (str[i] - '0');
-		i++;
+		num = (num * 10) + (*str - '0');
+		str++;
 	}
-	if (*num > 2147483647)
-		return (1);
-	return (0);
+	return (num);
 }
 
 int	check_input(int argc, char **argv)
@@ -58,7 +54,7 @@ int	check_input(int argc, char **argv)
 	check = 0;
 	if (ft_isnum(argc, argv))
 		return (ft_error(0), 1);
-	ft_atoi(argv[1], &check);
+	check = ft_atoi(argv[1]);
 	if (check < 1 || check > 200)
 		return (ft_error(1), 1);
 	return (0);

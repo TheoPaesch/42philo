@@ -6,7 +6,7 @@
 /*   By: tpaesch <tpaesch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 18:02:26 by tpaesch           #+#    #+#             */
-/*   Updated: 2024/05/06 22:11:31 by tpaesch          ###   ########.fr       */
+/*   Updated: 2024/05/07 00:52:01 by tpaesch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,18 +55,19 @@ typedef struct s_ph_cons
 
 void						ft_error(int i);
 int							get_conditions(int argc, char **argv,
-								t_ph_cons cons, t_philos philos);
-int							init_threads(t_ph_cons cons);
+								t_ph_cons *cons);
+int							init_threads(t_ph_cons *cons);
 void						*ph_routine(void *philo);
 void						*keep_routine(void *barkeep);
 unsigned int				ft_get_millis(void);
 void						ft_wait_until(unsigned int time);
-void						fill_philo(t_philos philos, t_ph_cons cons,
+void						fill_philo(t_philos *philos, t_ph_cons *cons,
 								int num);
 int							ft_malloc(size_t size, void **ptr);
 void						free_philos(t_ph_cons *cons, int id);
-bool						ft_atoi(const char *str, unsigned int *num);
+unsigned int				ft_atoi(char *str);
 int							ft_isnum(int argc, char **argv);
 bool						ft_wait_and_die(unsigned int time, t_philos *philo);
 void						ft_die(t_ph_cons *cons);
+bool						init_forks(t_ph_cons *cons);
 #endif

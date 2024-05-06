@@ -6,7 +6,7 @@
 /*   By: tpaesch <tpaesch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 13:41:55 by tpaesch           #+#    #+#             */
-/*   Updated: 2024/05/06 22:09:21 by tpaesch          ###   ########.fr       */
+/*   Updated: 2024/05/06 23:56:18 by tpaesch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,13 @@ bool	simulation_is_running(t_ph_cons *cons)
 	return (true);
 }
 
+void	sleep_check(t_philos *philo)
+{
+	if (philo->ph_num % 2 == 0)
+		printf("philo %d is thinking : %u\n", philo->ph_num, ft_get_millis());
+	ft_wait_until(philo->tt_eat / 2);
+}
+
 void	*ph_routine(void *ph)
 {
 	t_philos	*philo;
@@ -43,10 +50,9 @@ void	*ph_routine(void *ph)
 		single_routine(*philo);
 	else
 	{
+		sleep_check(philo);
 		while (simulation_is_running(philo->cons))
 		{
-			printf("philo %d is thinking : %u\n", philo->ph_num,
-				ft_get_millis());
 			pthread_mutex_lock(philo->fork_l);
 			pthread_mutex_lock(philo->fork_r);
 			printf("philo %d is eating : %u\n", philo->ph_num, ft_get_millis());
@@ -57,6 +63,8 @@ void	*ph_routine(void *ph)
 			printf("philo %d is sleeping : %u\n", philo->ph_num,
 				ft_get_millis());
 			ft_wait_until(philo->tt_sleep + ft_get_millis());
+			printf("philo %d is thinking : %u\n", philo->ph_num,
+				ft_get_millis());
 		}
 	}
 	return (NULL);
