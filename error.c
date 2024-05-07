@@ -6,7 +6,7 @@
 /*   By: tpaesch <tpaesch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/27 13:48:26 by tpaesch           #+#    #+#             */
-/*   Updated: 2024/05/06 21:53:32 by tpaesch          ###   ########.fr       */
+/*   Updated: 2024/05/07 16:39:59 by tpaesch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,13 +39,13 @@ void	free_philos(t_ph_cons *cons, int id)
 		while (i < cons->ph_amount)
 		{
 			pthread_mutex_destroy(cons->philos[i].fork_r);
-			pthread_mutex_destroy(cons->philos[i].fork_l);
-			pthread_mutex_destroy(cons->philos[i].for_amount);
-			pthread_mutex_destroy(cons->philos[i].for_eaten);
+			pthread_mutex_destroy(&cons->philos[i].fork_l);
+			pthread_mutex_destroy(&cons->philos[i].for_amount);
+			pthread_mutex_destroy(&cons->philos[i].for_eaten);
 			pthread_join(cons->philos[i].ph_thread, NULL);
 			i++;
 		}
-		pthread_mutex_destroy(cons->for_alive);
+		pthread_mutex_destroy(&cons->for_alive);
 	}
 	free(cons->philos);
 	cons->philos = NULL;

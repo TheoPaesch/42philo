@@ -6,13 +6,14 @@
 /*   By: tpaesch <tpaesch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 18:02:26 by tpaesch           #+#    #+#             */
-/*   Updated: 2024/05/07 00:52:01 by tpaesch          ###   ########.fr       */
+/*   Updated: 2024/05/07 20:15:47 by tpaesch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PHILO_H
 # define PHILO_H
 
+# include <limits.h>
 # include <pthread.h>
 # include <stdbool.h>
 # include <stdio.h>
@@ -26,9 +27,9 @@ typedef struct s_philos
 {
 	int						ph_num;
 	pthread_t				ph_thread;
-	pthread_mutex_t			*for_eaten;
-	pthread_mutex_t			*for_amount;
-	pthread_mutex_t			*fork_l;
+	pthread_mutex_t			for_eaten;
+	pthread_mutex_t			for_amount;
+	pthread_mutex_t			fork_l;
 	pthread_mutex_t			*fork_r;
 	unsigned int			tt_sleep;
 	unsigned int			tt_eat;
@@ -40,8 +41,8 @@ typedef struct s_philos
 
 typedef struct s_ph_cons
 {
-	pthread_mutex_t			*for_alive;
-	pthread_t				barkeep;
+	pthread_mutex_t			for_alive;
+	pthread_mutex_t			for_print;
 	unsigned int			tt_sleep;
 	unsigned int			tt_eat;
 	unsigned int			tt_die;
@@ -70,4 +71,7 @@ int							ft_isnum(int argc, char **argv);
 bool						ft_wait_and_die(unsigned int time, t_philos *philo);
 void						ft_die(t_ph_cons *cons);
 bool						init_forks(t_ph_cons *cons);
+void						ft_printfunc(t_ph_cons *cons, int id,
+								const char *msg);
+int							check_input(int argc, char **argv);
 #endif

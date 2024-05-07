@@ -6,7 +6,7 @@
 /*   By: tpaesch <tpaesch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/24 15:36:56 by tpaesch           #+#    #+#             */
-/*   Updated: 2024/05/07 00:54:20 by tpaesch          ###   ########.fr       */
+/*   Updated: 2024/05/07 20:16:24 by tpaesch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,12 +20,10 @@ int	main(int argc, char **argv)
 		return (ft_error(1), 1);
 	else
 	{
-		if (ft_isnum(argc, argv))
-			return (ft_error(0), 1);
-		printf("hello there :) \n");
+		if (check_input(argc, argv))
+			return (1);
 		if (get_conditions(argc, argv, &cons))
 			return (ft_error(0), 1);
-		printf("hello there :) \n");
 		if (init_forks(&cons))
 			return (ft_error(0), 1);
 		if (init_threads(&cons))

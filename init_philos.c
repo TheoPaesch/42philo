@@ -6,7 +6,7 @@
 /*   By: tpaesch <tpaesch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/27 14:51:20 by tpaesch           #+#    #+#             */
-/*   Updated: 2024/05/07 00:54:47 by tpaesch          ###   ########.fr       */
+/*   Updated: 2024/05/07 20:22:35 by tpaesch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,16 +25,19 @@ int	get_conditions(int argc, char **argv, t_ph_cons *cons)
 	if (argc == 6)
 		cons->gt_eat = ft_atoi(argv[5]);
 	else
+		cons->gt_eat = UINT32_MAX;
+	cons->philos = malloc(sizeof(cons->philos) * cons->ph_amount);
+	if (cons->philos == NULL)
+		return (ft_error(0), EXIT_FAILURE);
+	while (i < cons->ph_amount)
 	{
-		if (ft_malloc(sizeof(cons->philos) * cons->ph_amount,
-				(void **)cons->philos))
-			return (ft_error(0), EXIT_FAILURE);
-		while (i < cons->ph_amount)
-		{
-			fill_philo(&cons->philos[i], cons, i + 1);
-			i++;
-		}
+		fill_philo(&cons->philos[i], cons, i + 1);
+		i++;
 	}
+	if (pthread_mutex_init(&cons->for_alive, NULL) != 0)
+		return (ft_error(0), EXIT_FAILURE);
+	if (pthread_mutex_init(&cons->for_print, NULL) != 0)
+		return (ft_error(0), EXIT_FAILURE);
 	return (EXIT_SUCCESS);
 }
 
@@ -51,20 +54,21 @@ static int	create_thread(t_philos philo)
 int	init_threads(t_ph_cons *cons)
 {
 	unsigned int	i;
+	pthread_t		barkeep;
 
 	i = 0;
 	cons->ph_done = 0;
-	if (pthread_create(&(cons->barkeep), NULL, keep_routine, &(cons)))
-	{
-		ft_error(0);
-		free_philos(cons, 1);
-		return (EXIT_FAILURE);
-	}
-	while (i > cons->ph_amount)
+	while (i < cons->ph_amount)
 	{
 		if (create_thread(cons->philos[i]))
 			return (EXIT_FAILURE);
 		i++;
+	}
+	if (pthread_create(&barkeep, NULL, keep_routine, &(cons)))
+	{
+		ft_error(0);
+		free_philos(cons, 1);
+		return (EXIT_FAILURE);
 	}
 	return (EXIT_SUCCESS);
 }
@@ -76,19 +80,18 @@ bool	init_forks(t_ph_cons *cons)
 	i = 0;
 	while (i < cons->ph_amount)
 	{
-		if (pthread_mutex_init(cons->philos[i].for_eaten, NULL))
+		if (pthread_mutex_init(&cons->philos[i].for_eaten, NULL) != 0)
 			return (ft_error(0), EXIT_FAILURE);
-		if (pthread_mutex_init(cons->philos[i].for_amount, NULL))
+		if (pthread_mutex_init(&cons->philos[i].for_amount, NULL) != 0)
 			return (ft_error(0), EXIT_FAILURE);
-		if (pthread_mutex_init(cons->philos[i].fork_l, NULL))
+		if (pthread_mutex_init(&cons->philos[i].fork_l, NULL) != 0)
 			return (ft_error(0), EXIT_FAILURE);
 		if (i >= 1)
-			cons->philos[i].fork_r = cons->philos[i - 1].fork_l;
+			cons->philos[i].fork_r = &cons->philos[i - 1].fork_l;
 		/*remember to free here in returns*/
+		i++;
 	}
-	if (pthread_mutex_init(cons->for_alive, NULL))
-		return (ft_error(0), EXIT_FAILURE);
-	cons->philos[0].fork_r = cons->philos[cons->ph_amount].fork_l;
+	cons->philos[0].fork_r = &cons->philos[cons->ph_amount].fork_l;
 	return (EXIT_SUCCESS);
 }
 
