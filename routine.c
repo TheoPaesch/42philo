@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   routine.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tpaesch <tpaesch@student.42heilbronn.de    +#+  +:+       +#+        */
+/*   By: tpaesch <tpaesch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 13:41:55 by tpaesch           #+#    #+#             */
-/*   Updated: 2024/05/08 23:54:29 by tpaesch          ###   ########.fr       */
+/*   Updated: 2024/05/09 01:33:10 by tpaesch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,8 +35,9 @@ void	single_routine(t_philos *philo)
 {
 	pthread_mutex_lock(&philo->fork_l);
 	ft_printfunc(philo->cons, philo->ph_num, "has taken a fork");
-	ft_wait_and_die(philo->cons->tt_eat + ft_get_millis(), philo);
+	ft_wait_until(philo->cons->tt_die + ft_get_millis());
 	pthread_mutex_unlock(&philo->fork_l);
+	ft_die(philo->cons, 1);
 	return ;
 }
 
