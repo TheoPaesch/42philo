@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_philos.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tpaesch <tpaesch@student.42.fr>            +#+  +:+       +#+        */
+/*   By: tpaesch <tpaesch@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/27 14:51:20 by tpaesch           #+#    #+#             */
-/*   Updated: 2024/05/07 20:22:35 by tpaesch          ###   ########.fr       */
+/*   Updated: 2024/05/08 22:36:49 by tpaesch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,9 @@ int	get_conditions(int argc, char **argv, t_ph_cons *cons)
 	cons->tt_eat = ft_atoi(argv[3]);
 	cons->tt_sleep = ft_atoi(argv[4]);
 	cons->ph_amount = ft_atoi(argv[1]);
+	cons->ph_done = 0;
+	cons->one_dead = false;
+	cons->tt_start = ft_get_millis();
 	if (argc == 6)
 		cons->gt_eat = ft_atoi(argv[5]);
 	else
@@ -41,9 +44,9 @@ int	get_conditions(int argc, char **argv, t_ph_cons *cons)
 	return (EXIT_SUCCESS);
 }
 
-static int	create_thread(t_philos philo)
+static int	create_thread(t_philos *philo)
 {
-	if (pthread_create(&philo.ph_thread, NULL, ph_routine, &(philo)))
+	if (pthread_create(&philo->ph_thread, NULL, ph_routine, philo))
 	{
 		ft_error(0);
 		return (EXIT_FAILURE);
@@ -60,11 +63,11 @@ int	init_threads(t_ph_cons *cons)
 	cons->ph_done = 0;
 	while (i < cons->ph_amount)
 	{
-		if (create_thread(cons->philos[i]))
+		if (create_thread(&cons->philos[i]))
 			return (EXIT_FAILURE);
 		i++;
 	}
-	if (pthread_create(&barkeep, NULL, keep_routine, &(cons)))
+	if (pthread_create(&barkeep, NULL, keep_routine, cons))
 	{
 		ft_error(0);
 		free_philos(cons, 1);

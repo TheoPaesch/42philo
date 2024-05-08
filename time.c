@@ -6,7 +6,7 @@
 /*   By: tpaesch <tpaesch@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 16:29:09 by tpaesch           #+#    #+#             */
-/*   Updated: 2024/05/08 02:50:19 by tpaesch          ###   ########.fr       */
+/*   Updated: 2024/05/08 22:14:00 by tpaesch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void	ft_wait_until(unsigned int time)
 	unsigned int	diff_time;
 	unsigned int	current_time;
 
-	while (1)
+	while (true)
 	{
 		current_time = ft_get_millis();
 		if (current_time >= time)

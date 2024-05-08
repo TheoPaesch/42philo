@@ -6,7 +6,7 @@
 /*   By: tpaesch <tpaesch@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 18:02:26 by tpaesch           #+#    #+#             */
-/*   Updated: 2024/05/08 02:32:09 by tpaesch          ###   ########.fr       */
+/*   Updated: 2024/05/08 22:45:20 by tpaesch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,7 @@ typedef struct s_ph_cons
 	unsigned int			tt_sleep;
 	unsigned int			tt_eat;
 	unsigned int			tt_die;
+	unsigned int			tt_start;
 	bool					one_dead;
 	unsigned int			ph_done;
 	unsigned int			ph_amount;
@@ -72,4 +73,6 @@ bool						init_forks(t_ph_cons *cons);
 void						ft_printfunc(t_ph_cons *cons, int id,
 								const char *msg);
 int							check_input(int argc, char **argv);
+bool						simulation_is_running(t_ph_cons *cons);
+
 #endif

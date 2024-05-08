@@ -6,7 +6,7 @@
 /*   By: tpaesch <tpaesch@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 13:41:55 by tpaesch           #+#    #+#             */
-/*   Updated: 2024/05/08 02:59:57 by tpaesch          ###   ########.fr       */
+/*   Updated: 2024/05/08 22:43:39 by tpaesch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ bool	simulation_is_running(t_ph_cons *cons)
 	if (cons->ph_done == cons->ph_amount)
 		check = false;
 	pthread_mutex_unlock(&cons->for_done);
-	ft_printfunc(cons, check, "shit");
+	ft_printfunc(cons, check, "shit2");
 	return (check);
 }
 
@@ -80,9 +80,10 @@ void	*ph_routine(void *ph)
 		single_routine(philo);
 	else
 	{
-		sleep_check(philo);
+		// sleep_check(philo);
 		while (simulation_is_running(philo->cons))
 		{
+			printf("ich ficke philo %d\n", philo->ph_num);
 			is_eating(philo);
 			ft_printfunc(philo->cons, philo->ph_num, "is sleeping");
 			ft_wait_until(philo->cons->tt_sleep + ft_get_millis());
@@ -99,6 +100,7 @@ void	*keep_routine(void *barkeep)
 
 	cons = (t_ph_cons *)barkeep;
 	i = 0;
+	printf("reached barkeep\n");
 	while (i < cons->ph_amount)
 	{
 		ft_printfunc(cons, i + 1, "iteration check");
