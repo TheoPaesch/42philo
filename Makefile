@@ -1,7 +1,7 @@
 NAME=philo
 
 CC=cc
-CFLAGS = -Wall -Wextra -Werror
+CFLAGS = -Wall -Wextra -Werror -g
 
 
 CFILES = error.c \
@@ -10,7 +10,7 @@ CFILES = error.c \
 		 parsing.c \
 		 routine.c \
 		 time.c \
-		 utils.c 
+		 utils.c
 
 OBJECTS = $(CFILES:.c=.o)
 

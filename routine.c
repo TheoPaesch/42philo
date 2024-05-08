@@ -6,7 +6,7 @@
 /*   By: tpaesch <tpaesch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 13:41:55 by tpaesch           #+#    #+#             */
-/*   Updated: 2024/05/09 01:33:10 by tpaesch          ###   ########.fr       */
+/*   Updated: 2024/05/09 01:49:09 by tpaesch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,13 +15,19 @@
 void	is_eating(t_philos *philo)
 {
 	pthread_mutex_lock(&philo->fork_l);
-	ft_printfunc(philo->cons, philo->ph_num, "has taken fork one");
+	ft_printfunc(philo->cons, philo->ph_num, "has taken fork");
 	pthread_mutex_lock(philo->fork_r);
-	ft_printfunc(philo->cons, philo->ph_num, "has taken fork two");
+	ft_printfunc(philo->cons, philo->ph_num, "has taken fork");
 	ft_printfunc(philo->cons, philo->ph_num, "is eating");
 	ft_wait_and_die(philo->cons->tt_eat + ft_get_millis(), philo);
 	pthread_mutex_lock(&philo->for_amount);
 	philo->a_eaten++;
+	if (philo->a_eaten == philo->cons->gt_eat)
+	{
+		pthread_mutex_lock(&philo->cons->for_done);
+		philo->cons->ph_done++;
+		pthread_mutex_unlock(&philo->cons->for_done);
+	}
 	pthread_mutex_unlock(&philo->for_amount);
 	pthread_mutex_unlock(&philo->fork_l);
 	pthread_mutex_unlock(philo->fork_r);
@@ -97,19 +103,14 @@ void	*keep_routine(void *barkeep)
 	i = 0;
 	while (i < cons->ph_amount)
 	{
-		pthread_mutex_lock(&cons->philos[i].for_eaten);
-		if (cons->philos[i].a_eaten == cons->gt_eat)
-		{
-			pthread_mutex_lock(&cons->for_done);
-			cons->ph_done++;
-			pthread_mutex_unlock(&cons->for_done);
-		}
-		pthread_mutex_unlock(&cons->philos[i].for_eaten);
+		pthread_mutex_lock(&cons->for_done);
 		if (cons->ph_done >= cons->ph_amount)
 		{
+			pthread_mutex_lock(&cons->for_done);
 			free_philos(cons, 0);
 			return (NULL);
 		}
+		pthread_mutex_unlock(&cons->for_done);
 		i++;
 		if (i == cons->ph_amount - 1)
 			i = 0;
