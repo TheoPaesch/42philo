@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tpaesch <tpaesch@student.42.fr>            +#+  +:+       +#+        */
+/*   By: tpaesch <tpaesch@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 18:02:26 by tpaesch           #+#    #+#             */
-/*   Updated: 2024/05/07 20:15:47 by tpaesch          ###   ########.fr       */
+/*   Updated: 2024/05/08 02:32:09 by tpaesch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,11 +31,9 @@ typedef struct s_philos
 	pthread_mutex_t			for_amount;
 	pthread_mutex_t			fork_l;
 	pthread_mutex_t			*fork_r;
-	unsigned int			tt_sleep;
-	unsigned int			tt_eat;
-	unsigned int			tt_die;
 	unsigned int			a_eaten;
 	unsigned int			l_eaten;
+	bool					permission;
 	t_ph_cons				*cons;
 }							t_philos;
 
@@ -43,13 +41,13 @@ typedef struct s_ph_cons
 {
 	pthread_mutex_t			for_alive;
 	pthread_mutex_t			for_print;
+	pthread_mutex_t			for_done;
 	unsigned int			tt_sleep;
 	unsigned int			tt_eat;
 	unsigned int			tt_die;
 	bool					one_dead;
-	int						ph_done;
+	unsigned int			ph_done;
 	unsigned int			ph_amount;
-	unsigned int			a_eaten;
 	unsigned int			gt_eat;
 	t_philos				*philos;
 }							t_ph_cons;

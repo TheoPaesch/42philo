@@ -6,7 +6,7 @@
 /*   By: tpaesch <tpaesch@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 16:29:09 by tpaesch           #+#    #+#             */
-/*   Updated: 2024/05/04 02:53:09 by tpaesch          ###   ########.fr       */
+/*   Updated: 2024/05/08 02:50:19 by tpaesch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,12 +40,13 @@ void	ft_wait_until(unsigned int time)
 
 bool	ft_wait_and_die(unsigned int time, t_philos *philo)
 {
-	unsigned int die_time;
+	unsigned int	die_time;
 
-	die_time = philo->l_eaten + philo->tt_die;
+	die_time = philo->l_eaten + philo->cons->tt_die;
 	if (die_time < time)
 	{
 		ft_wait_until(die_time);
+		ft_printfunc(philo->cons, philo->ph_num, "died");
 		ft_die(philo->cons);
 		return (true);
 	}
