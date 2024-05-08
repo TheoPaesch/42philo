@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   time.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tpaesch <tpaesch@student.42heilbronn.de    +#+  +:+       +#+        */
+/*   By: tpaesch <tpaesch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 16:29:09 by tpaesch           #+#    #+#             */
-/*   Updated: 2024/05/08 23:42:23 by tpaesch          ###   ########.fr       */
+/*   Updated: 2024/05/09 01:22:31 by tpaesch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,14 +46,7 @@ bool	ft_wait_and_die(unsigned int time, t_philos *philo)
 	if (die_time < time)
 	{
 		ft_wait_until(die_time);
-		pthread_mutex_lock(&philo->cons->for_print);
-		if (philo->cons->one_dead == false)
-		{
-			ft_die(philo->cons);
-			printf("%u %d died\n", ft_get_millis() - philo->cons->tt_start,
-				philo->ph_num);
-		}
-		pthread_mutex_unlock(&philo->cons->for_print);
+		ft_die(philo->cons, philo->ph_num);
 		return (true);
 	}
 	ft_wait_until(time);

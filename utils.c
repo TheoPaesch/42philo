@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tpaesch <tpaesch@student.42heilbronn.de    +#+  +:+       +#+        */
+/*   By: tpaesch <tpaesch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/26 14:52:47 by tpaesch           #+#    #+#             */
-/*   Updated: 2024/05/08 23:57:57 by tpaesch          ###   ########.fr       */
+/*   Updated: 2024/05/09 01:24:01 by tpaesch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,10 +20,16 @@ void	fill_philo(t_philos *philos, t_ph_cons *cons, int num)
 	philos->cons = cons;
 }
 
-void	ft_die(t_ph_cons *cons)
+void	ft_die(t_ph_cons *cons, int ph_num)
 {
 	pthread_mutex_lock(&cons->for_alive);
-	cons->one_dead = true;
+	if (cons->one_dead == false)
+	{
+		cons->one_dead = true;
+		pthread_mutex_lock(&cons->for_print);
+		printf("%u %d died\n", ft_get_millis() - cons->tt_start, ph_num);
+		pthread_mutex_unlock(&cons->for_print);
+	}
 	pthread_mutex_unlock(&cons->for_alive);
 }
 

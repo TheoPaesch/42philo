@@ -6,7 +6,7 @@
 /*   By: tpaesch <tpaesch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/27 13:48:26 by tpaesch           #+#    #+#             */
-/*   Updated: 2024/05/09 01:12:41 by tpaesch          ###   ########.fr       */
+/*   Updated: 2024/05/09 01:14:36 by tpaesch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ void	free_philos(t_ph_cons *cons, int id)
 		pthread_mutex_destroy(&cons->for_alive);
 		pthread_mutex_destroy(&cons->for_print);
 		pthread_mutex_destroy(&cons->for_done);
-		pthread_join(&cons->barkeep, NULL);
+		pthread_join(cons->barkeep, NULL);
 	}
 	free(cons->philos);
 	cons->philos = NULL;

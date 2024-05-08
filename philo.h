@@ -6,7 +6,7 @@
 /*   By: tpaesch <tpaesch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 18:02:26 by tpaesch           #+#    #+#             */
-/*   Updated: 2024/05/09 01:12:10 by tpaesch          ###   ########.fr       */
+/*   Updated: 2024/05/09 01:22:48 by tpaesch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ void						free_philos(t_ph_cons *cons, int id);
 unsigned int				ft_atoi(char *str);
 int							ft_isnum(int argc, char **argv);
 bool						ft_wait_and_die(unsigned int time, t_philos *philo);
-void						ft_die(t_ph_cons *cons);
+void						ft_die(t_ph_cons *cons, int ph_num);
 bool						init_forks(t_ph_cons *cons);
 void						ft_printfunc(t_ph_cons *cons, int id,
 								const char *msg);

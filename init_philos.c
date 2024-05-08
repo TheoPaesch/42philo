@@ -6,7 +6,7 @@
 /*   By: tpaesch <tpaesch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/27 14:51:20 by tpaesch           #+#    #+#             */
-/*   Updated: 2024/05/09 01:12:03 by tpaesch          ###   ########.fr       */
+/*   Updated: 2024/05/09 01:15:03 by tpaesch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ int	init_threads(t_ph_cons *cons)
 			return (EXIT_FAILURE);
 		i++;
 	}
-	if (pthread_create(&barkeep, NULL, keep_routine, cons))
+	if (pthread_create(&cons->barkeep, NULL, keep_routine, cons))
 	{
 		ft_error(0);
 		free_philos(cons, 1);
