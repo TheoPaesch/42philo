@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_philos.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tpaesch <tpaesch@student.42heilbronn.de    +#+  +:+       +#+        */
+/*   By: tpaesch <tpaesch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/27 14:51:20 by tpaesch           #+#    #+#             */
-/*   Updated: 2024/05/08 23:56:53 by tpaesch          ###   ########.fr       */
+/*   Updated: 2024/05/09 01:12:03 by tpaesch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,8 @@ int	get_conditions(int argc, char **argv, t_ph_cons *cons)
 	if (argc == 6)
 		cons->gt_eat = ft_atoi(argv[5]);
 	else
-		cons->gt_eat = UINT32_MAX;
-	cons->philos = malloc(sizeof(cons->philos) * cons->ph_amount);
+		cons->gt_eat = UINT_MAX;
+	cons->philos = malloc(sizeof(t_philos) * cons->ph_amount);
 	if (cons->philos == NULL)
 		return (ft_error(0), EXIT_FAILURE);
 	while (i < cons->ph_amount)
@@ -53,7 +53,6 @@ static int	create_thread(t_philos *philo)
 int	init_threads(t_ph_cons *cons)
 {
 	unsigned int	i;
-	pthread_t		barkeep;
 
 	i = 0;
 	cons->ph_done = 0;
@@ -93,6 +92,8 @@ bool	init_forks(t_ph_cons *cons)
 	if (pthread_mutex_init(&cons->for_alive, NULL) != 0)
 		return (ft_error(0), EXIT_FAILURE);
 	if (pthread_mutex_init(&cons->for_print, NULL) != 0)
+		return (ft_error(0), EXIT_FAILURE);
+	if (pthread_mutex_init(&cons->for_done, NULL) != 0)
 		return (ft_error(0), EXIT_FAILURE);
 	return (EXIT_SUCCESS);
 }
