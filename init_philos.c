@@ -6,7 +6,7 @@
 /*   By: tpaesch <tpaesch@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/27 14:51:20 by tpaesch           #+#    #+#             */
-/*   Updated: 2024/05/08 23:55:05 by tpaesch          ###   ########.fr       */
+/*   Updated: 2024/05/08 23:56:53 by tpaesch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,10 +37,6 @@ int	get_conditions(int argc, char **argv, t_ph_cons *cons)
 		fill_philo(&cons->philos[i], cons, i + 1);
 		i++;
 	}
-	if (pthread_mutex_init(&cons->for_alive, NULL) != 0)
-		return (ft_error(0), EXIT_FAILURE);
-	if (pthread_mutex_init(&cons->for_print, NULL) != 0)
-		return (ft_error(0), EXIT_FAILURE);
 	return (EXIT_SUCCESS);
 }
 
@@ -94,5 +90,9 @@ bool	init_forks(t_ph_cons *cons)
 		i++;
 	}
 	cons->philos[0].fork_r = &cons->philos[cons->ph_amount - 1].fork_l;
+	if (pthread_mutex_init(&cons->for_alive, NULL) != 0)
+		return (ft_error(0), EXIT_FAILURE);
+	if (pthread_mutex_init(&cons->for_print, NULL) != 0)
+		return (ft_error(0), EXIT_FAILURE);
 	return (EXIT_SUCCESS);
 }

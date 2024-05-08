@@ -6,17 +6,11 @@
 /*   By: tpaesch <tpaesch@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/26 14:52:47 by tpaesch           #+#    #+#             */
-/*   Updated: 2024/05/08 23:29:38 by tpaesch          ###   ########.fr       */
+/*   Updated: 2024/05/08 23:57:57 by tpaesch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
-
-int	ft_malloc(size_t size, void **ptr)
-{
-	*ptr = malloc(size);
-	return (*ptr == NULL);
-}
 
 void	fill_philo(t_philos *philos, t_ph_cons *cons, int num)
 {

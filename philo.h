@@ -6,7 +6,7 @@
 /*   By: tpaesch <tpaesch@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 18:02:26 by tpaesch           #+#    #+#             */
-/*   Updated: 2024/05/08 23:11:28 by tpaesch          ###   ########.fr       */
+/*   Updated: 2024/05/08 23:58:03 by tpaesch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,6 @@ unsigned int				ft_get_millis(void);
 void						ft_wait_until(unsigned int time);
 void						fill_philo(t_philos *philos, t_ph_cons *cons,
 								int num);
-int							ft_malloc(size_t size, void **ptr);
 void						free_philos(t_ph_cons *cons, int id);
 unsigned int				ft_atoi(char *str);
 int							ft_isnum(int argc, char **argv);

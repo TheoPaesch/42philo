@@ -9,7 +9,6 @@ CFILES = error.c \
 		 main.c \
 		 parsing.c \
 		 routine.c \
-		 self_check.c \
 		 time.c \
 		 utils.c 
 
