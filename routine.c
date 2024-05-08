@@ -6,7 +6,7 @@
 /*   By: tpaesch <tpaesch@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 13:41:55 by tpaesch           #+#    #+#             */
-/*   Updated: 2024/05/08 22:43:39 by tpaesch          ###   ########.fr       */
+/*   Updated: 2024/05/08 22:52:20 by tpaesch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ bool	simulation_is_running(t_ph_cons *cons)
 	bool	check;
 
 	check = true;
-	ft_printfunc(cons, check, "shit");
+	// ft_printfunc(cons, check, "shit");
 	pthread_mutex_lock(&cons->for_alive);
 	if (cons->one_dead == true)
 		check = false;
@@ -57,7 +57,7 @@ bool	simulation_is_running(t_ph_cons *cons)
 	if (cons->ph_done == cons->ph_amount)
 		check = false;
 	pthread_mutex_unlock(&cons->for_done);
-	ft_printfunc(cons, check, "shit2");
+	// ft_printfunc(cons, check, "shit2");
 	return (check);
 }
 
@@ -80,10 +80,10 @@ void	*ph_routine(void *ph)
 		single_routine(philo);
 	else
 	{
-		// sleep_check(philo);
+		sleep_check(philo);
 		while (simulation_is_running(philo->cons))
 		{
-			printf("ich ficke philo %d\n", philo->ph_num);
+			// printf("ich ficke philo %d\n", philo->ph_num);
 			is_eating(philo);
 			ft_printfunc(philo->cons, philo->ph_num, "is sleeping");
 			ft_wait_until(philo->cons->tt_sleep + ft_get_millis());
@@ -103,7 +103,7 @@ void	*keep_routine(void *barkeep)
 	printf("reached barkeep\n");
 	while (i < cons->ph_amount)
 	{
-		ft_printfunc(cons, i + 1, "iteration check");
+		// ft_printfunc(cons, i + 1, "iteration check");
 		if (cons->philos[i].a_eaten == cons->gt_eat)
 		{
 			ft_printfunc(cons, i + 1, "died");
