@@ -6,7 +6,7 @@
 /*   By: tpaesch <tpaesch@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/24 15:36:56 by tpaesch           #+#    #+#             */
-/*   Updated: 2024/05/08 22:45:49 by tpaesch          ###   ########.fr       */
+/*   Updated: 2024/05/08 23:54:42 by tpaesch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,9 +34,3 @@ int	main(int argc, char **argv)
 		usleep(500);
 	return (0);
 }
-/* check for valid arguments
-create threads and give them checks for time
-pthread_mutex_init
-pthread_mutex_lock
-pthread_mutex_unlock
-*/

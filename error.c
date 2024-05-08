@@ -6,7 +6,7 @@
 /*   By: tpaesch <tpaesch@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/27 13:48:26 by tpaesch           #+#    #+#             */
-/*   Updated: 2024/05/08 01:31:56 by tpaesch          ###   ########.fr       */
+/*   Updated: 2024/05/08 23:53:38 by tpaesch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,5 +49,3 @@ void	free_philos(t_ph_cons *cons, int id)
 	free(cons->philos);
 	cons->philos = NULL;
 }
-
-/*remember to finish main thread before freeing structs*/

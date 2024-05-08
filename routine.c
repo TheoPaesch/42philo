@@ -6,15 +6,12 @@
 /*   By: tpaesch <tpaesch@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 13:41:55 by tpaesch           #+#    #+#             */
-/*   Updated: 2024/05/08 22:52:20 by tpaesch          ###   ########.fr       */
+/*   Updated: 2024/05/08 23:54:29 by tpaesch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-/*routine for table (barkeep), that checks if philo died or meals finished*/
-/*routine for the philosophers, calculating the time from when
-last eaten, to end of meal, end of sleep ... */
 void	is_eating(t_philos *philo)
 {
 	pthread_mutex_lock(&philo->fork_l);
@@ -48,7 +45,6 @@ bool	simulation_is_running(t_ph_cons *cons)
 	bool	check;
 
 	check = true;
-	// ft_printfunc(cons, check, "shit");
 	pthread_mutex_lock(&cons->for_alive);
 	if (cons->one_dead == true)
 		check = false;
@@ -57,7 +53,6 @@ bool	simulation_is_running(t_ph_cons *cons)
 	if (cons->ph_done == cons->ph_amount)
 		check = false;
 	pthread_mutex_unlock(&cons->for_done);
-	// ft_printfunc(cons, check, "shit2");
 	return (check);
 }
 
@@ -83,7 +78,6 @@ void	*ph_routine(void *ph)
 		sleep_check(philo);
 		while (simulation_is_running(philo->cons))
 		{
-			// printf("ich ficke philo %d\n", philo->ph_num);
 			is_eating(philo);
 			ft_printfunc(philo->cons, philo->ph_num, "is sleeping");
 			ft_wait_until(philo->cons->tt_sleep + ft_get_millis());
@@ -100,20 +94,19 @@ void	*keep_routine(void *barkeep)
 
 	cons = (t_ph_cons *)barkeep;
 	i = 0;
-	printf("reached barkeep\n");
 	while (i < cons->ph_amount)
 	{
-		// ft_printfunc(cons, i + 1, "iteration check");
+		pthread_mutex_lock(&cons->philos[i].for_eaten);
 		if (cons->philos[i].a_eaten == cons->gt_eat)
 		{
-			ft_printfunc(cons, i + 1, "died");
-			free_philos(cons, 2);
-			return (NULL);
+			pthread_mutex_lock(&cons->for_done);
+			cons->ph_done++;
+			pthread_mutex_unlock(&cons->for_done);
 		}
-		if (cons->one_dead == true)
+		pthread_mutex_unlock(&cons->philos[i].for_eaten);
+		if (cons->ph_done >= cons->ph_amount)
 		{
-			ft_printfunc(cons, i + 1, "died through console");
-			free_philos(cons, 2);
+			free_philos(cons, 0);
 			return (NULL);
 		}
 		i++;

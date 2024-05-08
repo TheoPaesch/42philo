@@ -6,7 +6,7 @@
 /*   By: tpaesch <tpaesch@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 16:29:09 by tpaesch           #+#    #+#             */
-/*   Updated: 2024/05/08 22:14:00 by tpaesch          ###   ########.fr       */
+/*   Updated: 2024/05/08 23:42:23 by tpaesch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,8 +46,14 @@ bool	ft_wait_and_die(unsigned int time, t_philos *philo)
 	if (die_time < time)
 	{
 		ft_wait_until(die_time);
-		ft_printfunc(philo->cons, philo->ph_num, "died");
-		ft_die(philo->cons);
+		pthread_mutex_lock(&philo->cons->for_print);
+		if (philo->cons->one_dead == false)
+		{
+			ft_die(philo->cons);
+			printf("%u %d died\n", ft_get_millis() - philo->cons->tt_start,
+				philo->ph_num);
+		}
+		pthread_mutex_unlock(&philo->cons->for_print);
 		return (true);
 	}
 	ft_wait_until(time);

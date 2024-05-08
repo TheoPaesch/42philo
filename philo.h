@@ -6,7 +6,7 @@
 /*   By: tpaesch <tpaesch@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 18:02:26 by tpaesch           #+#    #+#             */
-/*   Updated: 2024/05/08 22:45:20 by tpaesch          ###   ########.fr       */
+/*   Updated: 2024/05/08 23:11:28 by tpaesch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,6 @@ typedef struct s_philos
 	pthread_mutex_t			*fork_r;
 	unsigned int			a_eaten;
 	unsigned int			l_eaten;
-	bool					permission;
 	t_ph_cons				*cons;
 }							t_philos;
 

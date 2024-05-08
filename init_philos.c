@@ -6,7 +6,7 @@
 /*   By: tpaesch <tpaesch@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/27 14:51:20 by tpaesch           #+#    #+#             */
-/*   Updated: 2024/05/08 22:36:49 by tpaesch          ###   ########.fr       */
+/*   Updated: 2024/05/08 23:55:05 by tpaesch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,18 +91,8 @@ bool	init_forks(t_ph_cons *cons)
 			return (ft_error(0), EXIT_FAILURE);
 		if (i >= 1)
 			cons->philos[i].fork_r = &cons->philos[i - 1].fork_l;
-		/*remember to free here in returns*/
 		i++;
 	}
-	cons->philos[0].fork_r = &cons->philos[cons->ph_amount].fork_l;
+	cons->philos[0].fork_r = &cons->philos[cons->ph_amount - 1].fork_l;
 	return (EXIT_SUCCESS);
 }
-
-/* remember to destroy mutexes!!*/
-/* function for init mutexes*/
-/* give philo a groupnumber if it's a even number do %2 if not %3 ??*/
-/*function that checks philosophers counts for milliseconds with timefunc*/
-/*philo geht in anderen philo rein und locked den mutex der Fork*/
-/*philo takes the fork from right philo*/
-/* have to add time of millis to get_conditions?*/
-/*init array of forks for philos in table struct*/
