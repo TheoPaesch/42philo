@@ -6,7 +6,7 @@
 /*   By: tpaesch <tpaesch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/24 15:36:56 by tpaesch           #+#    #+#             */
-/*   Updated: 2024/05/09 01:28:56 by tpaesch          ###   ########.fr       */
+/*   Updated: 2024/05/09 02:08:52 by tpaesch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,5 +31,6 @@ int	main(int argc, char **argv)
 	}
 	while (simulation_is_running(&cons))
 		usleep(500);
+	free_philos(&cons, 2);
 	return (0);
 }
