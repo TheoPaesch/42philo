@@ -6,7 +6,7 @@
 /*   By: tpaesch <tpaesch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 13:41:55 by tpaesch           #+#    #+#             */
-/*   Updated: 2024/05/09 03:11:43 by tpaesch          ###   ########.fr       */
+/*   Updated: 2024/05/09 03:30:13 by tpaesch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@ void	single_routine(t_philos *philo)
 	ft_printfunc(philo->cons, philo->ph_num, "has taken a fork");
 	ft_wait_until(philo->cons->tt_die + ft_get_millis());
 	pthread_mutex_unlock(&philo->fork_l);
+	ft_printfunc(philo->cons, philo->ph_num, "died");
 	pthread_mutex_lock(&philo->cons->for_alive);
 	philo->cons->one_dead = true;
 	pthread_mutex_unlock(&philo->cons->for_alive);
@@ -88,10 +89,14 @@ void	*ph_routine(void *ph)
 		sleep_check(philo);
 		while (simulation_is_running(philo->cons))
 		{
-			is_eating(philo);
-			ft_printfunc(philo->cons, philo->ph_num, "is sleeping");
-			ft_wait_until(philo->cons->tt_sleep + ft_get_millis());
-			ft_printfunc(philo->cons, philo->ph_num, "is thinking");
+			if (simulation_is_running(philo->cons))
+				is_eating(philo);
+			if (simulation_is_running(philo->cons))
+				ft_printfunc(philo->cons, philo->ph_num, "is sleeping");
+			if (simulation_is_running(philo->cons))
+				ft_wait_until(philo->cons->tt_sleep + ft_get_millis());
+			if (simulation_is_running(philo->cons))
+				ft_printfunc(philo->cons, philo->ph_num, "is thinking");
 		}
 	}
 	return (NULL);
@@ -107,7 +112,10 @@ void	*keep_routine(void *barkeep)
 	while (i < cons->ph_amount)
 	{
 		if (!simulation_is_running(cons))
+		{
+			ft_die(cons, i + 1);
 			return (NULL);
+		}
 		pthread_mutex_lock(&cons->for_done);
 		if (cons->ph_done >= cons->ph_amount)
 		{
