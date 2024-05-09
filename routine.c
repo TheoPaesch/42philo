@@ -6,7 +6,7 @@
 /*   By: tpaesch <tpaesch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 13:41:55 by tpaesch           #+#    #+#             */
-/*   Updated: 2024/05/09 02:41:23 by tpaesch          ###   ########.fr       */
+/*   Updated: 2024/05/09 02:48:21 by tpaesch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,8 @@ void	is_eating(t_philos *philo)
 	pthread_mutex_lock(philo->fork_r);
 	ft_printfunc(philo->cons, philo->ph_num, "has taken fork");
 	ft_printfunc(philo->cons, philo->ph_num, "is eating");
-	ft_wait_and_die(philo->cons->tt_eat + ft_get_millis(), philo);
+	if (ft_wait_and_die(philo->cons->tt_eat + ft_get_millis(), philo))
+		return ;
 	pthread_mutex_lock(&philo->for_amount);
 	philo->a_eaten++;
 	if (philo->a_eaten == philo->cons->gt_eat)
@@ -109,7 +110,6 @@ void	*keep_routine(void *barkeep)
 		if (cons->ph_done >= cons->ph_amount)
 		{
 			pthread_mutex_lock(&cons->for_done);
-			free_philos(cons, 0);
 			return (NULL);
 		}
 		pthread_mutex_unlock(&cons->for_done);
