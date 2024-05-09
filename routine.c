@@ -6,7 +6,7 @@
 /*   By: tpaesch <tpaesch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 13:41:55 by tpaesch           #+#    #+#             */
-/*   Updated: 2024/05/09 01:49:09 by tpaesch          ###   ########.fr       */
+/*   Updated: 2024/05/09 02:41:23 by tpaesch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,9 @@ void	single_routine(t_philos *philo)
 	ft_printfunc(philo->cons, philo->ph_num, "has taken a fork");
 	ft_wait_until(philo->cons->tt_die + ft_get_millis());
 	pthread_mutex_unlock(&philo->fork_l);
-	ft_die(philo->cons, 1);
+	pthread_mutex_lock(&philo->cons->for_alive);
+	philo->cons->one_dead = true;
+	pthread_mutex_unlock(&philo->cons->for_alive);
 	return ;
 }
 
