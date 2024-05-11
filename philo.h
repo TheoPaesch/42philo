@@ -6,7 +6,7 @@
 /*   By: tpaesch <tpaesch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 18:02:26 by tpaesch           #+#    #+#             */
-/*   Updated: 2024/05/09 01:22:48 by tpaesch          ###   ########.fr       */
+/*   Updated: 2024/05/11 19:09:34 by tpaesch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,5 +73,5 @@ void						ft_printfunc(t_ph_cons *cons, int id,
 								const char *msg);
 int							check_input(int argc, char **argv);
 bool						simulation_is_running(t_ph_cons *cons);
-
+void						ft_die_sleeping(t_philos *philo);
 #endif
