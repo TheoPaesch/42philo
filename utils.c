@@ -6,7 +6,7 @@
 /*   By: tpaesch <tpaesch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/26 14:52:47 by tpaesch           #+#    #+#             */
-/*   Updated: 2024/05/09 03:01:30 by tpaesch          ###   ########.fr       */
+/*   Updated: 2024/05/09 03:44:08 by tpaesch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void	ft_die(t_ph_cons *cons, int ph_num)
 	if (cons->one_dead == false)
 	{
 		pthread_mutex_unlock(&cons->philos[ph_num].fork_l);
-		if (ph_num > 1)
+		if (ph_num > 0)
 			pthread_mutex_unlock(&cons->philos[ph_num - 1].fork_l);
 		else
 			pthread_mutex_unlock(&cons->philos[cons->ph_amount - 1].fork_l);

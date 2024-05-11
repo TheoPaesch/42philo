@@ -6,7 +6,7 @@
 /*   By: tpaesch <tpaesch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 13:41:55 by tpaesch           #+#    #+#             */
-/*   Updated: 2024/05/09 03:30:13 by tpaesch          ###   ########.fr       */
+/*   Updated: 2024/05/09 03:46:56 by tpaesch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,10 +112,7 @@ void	*keep_routine(void *barkeep)
 	while (i < cons->ph_amount)
 	{
 		if (!simulation_is_running(cons))
-		{
-			ft_die(cons, i + 1);
 			return (NULL);
-		}
 		pthread_mutex_lock(&cons->for_done);
 		if (cons->ph_done >= cons->ph_amount)
 		{
