@@ -20,7 +20,7 @@ all: $(NAME)
 	$(CC) $(CFLAGS) -c -o $@ $<
 
 $(NAME): $(OBJECTS)
-	$(CC) $(CFLAGS) $(CFILES) -o $(NAME)
+	$(CC) $(CFLAGS) $(OBJECTS) -o $(NAME)
 
 clean:
 	rm -f $(OBJECTS)
