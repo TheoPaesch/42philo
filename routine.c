@@ -6,7 +6,7 @@
 /*   By: tpaesch <tpaesch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 13:41:55 by tpaesch           #+#    #+#             */
-/*   Updated: 2024/05/11 19:07:05 by tpaesch          ###   ########.fr       */
+/*   Updated: 2024/05/12 15:36:19 by tpaesch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,16 +67,6 @@ bool	simulation_is_running(t_ph_cons *cons)
 	return (check);
 }
 
-void	sleep_check(t_philos *philo)
-{
-	if (philo->ph_num % 2 == 0)
-	{
-		ft_printfunc(philo->cons, philo->ph_num, "is thinking");
-		ft_wait_until(philo->cons->tt_eat / 2 + ft_get_millis());
-	}
-	return ;
-}
-
 void	*ph_routine(void *ph)
 {
 	t_philos	*philo;
@@ -98,10 +88,7 @@ void	*ph_routine(void *ph)
 				ft_wait_until(philo->cons->tt_sleep + ft_get_millis());
 			else if (simulation_is_running(philo->cons) && philo->l_eaten
 				+ philo->cons->tt_sleep > philo->l_eaten + philo->cons->tt_die)
-			{
-				ft_wait_until(philo->cons->tt_die + ft_get_millis());
 				ft_die_sleeping(philo);
-			}
 			if (simulation_is_running(philo->cons))
 				ft_printfunc(philo->cons, philo->ph_num, "is thinking");
 		}

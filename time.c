@@ -6,7 +6,7 @@
 /*   By: tpaesch <tpaesch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 16:29:09 by tpaesch           #+#    #+#             */
-/*   Updated: 2024/05/09 03:46:39 by tpaesch          ###   ########.fr       */
+/*   Updated: 2024/05/12 15:35:59 by tpaesch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,4 +51,29 @@ bool	ft_wait_and_die(unsigned int time, t_philos *philo)
 	}
 	ft_wait_until(time);
 	return (false);
+}
+
+void	sleep_check(t_philos *philo)
+{
+	if (philo->ph_num % 2 == 0)
+	{
+		ft_printfunc(philo->cons, philo->ph_num, "is thinking");
+		ft_wait_until(philo->cons->tt_eat / 2 + ft_get_millis());
+	}
+	return ;
+}
+
+void	ft_die_sleeping(t_philos *philo)
+{
+	ft_wait_until(philo->cons->tt_die + ft_get_millis());
+	pthread_mutex_lock(&philo->cons->for_alive);
+	if (philo->cons->one_dead == false)
+	{
+		philo->cons->one_dead = true;
+		pthread_mutex_lock(&philo->cons->for_print);
+		printf("%u %d died\n", ft_get_millis() - philo->cons->tt_start,
+			philo->ph_num);
+		pthread_mutex_unlock(&philo->cons->for_print);
+	}
+	pthread_mutex_unlock(&philo->cons->for_alive);
 }
